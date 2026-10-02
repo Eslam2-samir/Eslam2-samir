@@ -1,0 +1,24 @@
+{
+  "routes": [
+    "/auth/login",
+    "/auth/register",
+    "/auth/forgot-password",
+    "/app",
+    "/app/bookings/new",
+    "/app/bookings",
+    "/app/profile",
+    "/app/notifications",
+    "/admin",
+    "/admin/students",
+    "/admin/students/:id",
+    "/admin/bookings",
+    "/admin/requests",
+    "/admin/security",
+    "/admin/subscriptions",
+    "/admin/stations",
+    "/admin/departures",
+    "/admin/settings"
+  ],
+  "spaFallback": true,
+  "privateData": "Supabase API requests are authenticated and never shared-cached"
+}

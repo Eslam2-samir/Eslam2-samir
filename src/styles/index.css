@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, "Noto Sans Arabic", sans-serif;
+  color: #17201f;
+  background: #f4f7f6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; margin: 0; }
+body { min-width: 320px; background: #f4f7f6; line-height: 1.6; letter-spacing: normal; overflow-x: hidden; }
+button, input, select, textarea { font: inherit; line-height: 1.45; }
+button { -webkit-tap-highlight-color: transparent; }
+input, select, textarea { min-width: 0; }
+.safe-top { padding-top: max(1rem, env(safe-area-inset-top)); }
+.safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+.ltr-number { direction: ltr; unicode-bidi: plaintext; }
+.tabular { font-variant-numeric: tabular-nums; }
+.route-grid, .route-stripes { background-color: rgba(15,157,138,.025); }
+.ios-page, .ios-shell { background: #f4f7f6; }
+.ios-card { border-color: rgba(24,42,39,.10) !important; border-radius: 24px !important; background: #ffffff; box-shadow: 0 8px 22px rgba(18,31,29,.06) !important; }
+.ios-card.text-white { color: #ffffff !important; background: #17201f !important; }
+.ios-primary { border-radius: 16px !important; background: #17201f !important; box-shadow: 0 8px 18px rgba(23,32,31,.15); }
+.ios-chip-active { background: #d9efea; color: #08766a; box-shadow: inset 0 0 0 1px rgba(15,157,138,.20); }
+.ios-shell .rounded-2xl, .ios-shell .rounded-3xl { border-radius: 20px; }
+.ios-shell input, .ios-shell select { border-radius: 16px; }
+.mobile-nav-panel { animation: menu-in .18s ease-out both; }
+.mobile-nav-item { min-height: 3.25rem; }
+.mobile-bottom-safe { padding-bottom: max(.75rem, env(safe-area-inset-bottom)); }
+@keyframes menu-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes badge-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.notification-badge { animation: badge-pulse 1.8s ease-in-out infinite; }
+:focus-visible { outline: 3px solid rgba(15,157,138,.42); outline-offset: 2px; }
+[dir="rtl"] { text-align: start; }
+[dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] textarea { text-align: start; }
+@media (max-width: 640px) {
+  h1, h2, h3, p, span, a, button, label { overflow-wrap: anywhere; }
+  .ios-card { padding: 1rem !important; }
+  .safe-top { padding-top: max(.75rem, env(safe-area-inset-top)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+@media print {
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .print-card { box-shadow: none !important; border: 1px solid #d8e2e4 !important; }
+}

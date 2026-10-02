@@ -1,0 +1,332 @@
+I need you to modify the existing SuezBus project.
+
+IMPORTANT:
+Do NOT rebuild the project from scratch.
+Do NOT change unrelated functionality.
+Only implement the changes described below.
+After making the changes, run the build/typecheck and fix any errors.
+
+==================================================
+1. FIX STATION CLICK BEHAVIOR
+==================================================
+
+There is currently a station section in the Admin dashboard.
+
+The current behavior is wrong.
+
+Currently, when I click/select a station, the students appear in a way that makes the students list look like it is displayed outside/below the station cards, as shown in the screenshot I provided.
+
+I want the station cards to work as actual navigation/filter entry points.
+
+Example:
+
+Station 1:
+لعوايد
+5 students
+
+When the admin clicks the "لعوايد" station card:
+
+Open a dedicated station details/view.
+
+Inside that view, display ONLY students who booked/selected:
+
+لعوايد
+
+Do NOT display students from other stations.
+
+For example:
+
+If:
+
+لعوايد = 5 students
+شارع الترعه = 3 students
+المثلث = 6 students
+
+Clicking:
+
+لعوايد
+
+must show only those 5 students.
+
+Clicking:
+
+شارع الترعه
+
+must show only those 3 students.
+
+Clicking:
+
+المثلث
+
+must show only those 6 students.
+
+==================================================
+STATION DETAILS PAGE
+==================================================
+
+Create a clean station details view.
+
+Header:
+
+Station name
+
+Example:
+
+لعوايد
+
+Then:
+
+Students at station
+
+Then list:
+
+Student Name
+Student ID
+Phone
+Booking date
+Departure time
+Booking status
+Call button
+
+The Call button must use:
+
+tel:<phone>
+
+so the admin can call the student directly from a mobile device.
+
+Also display:
+
+Total students at this station
+
+Example:
+
+5 Students
+
+==================================================
+IMPORTANT FILTERING RULE
+==================================================
+
+The filtering MUST be based on the student's actual booking/station relationship from Supabase/database.
+
+Do NOT simply filter an already displayed frontend array if that could cause incorrect results.
+
+The selected station should determine the database query/filter.
+
+The admin must never see students from another station inside the selected station's details view.
+
+==================================================
+DATE FILTER
+==================================================
+
+If the admin has selected a specific date, the station details should show only students who booked that station on that selected date.
+
+Example:
+
+Selected date:
+1 October 2026
+
+Selected station:
+لعوايد
+
+Show ONLY:
+
+Students who booked "لعوايد" on 1 October 2026.
+
+If no date filter exists in the current UI, add a simple date selector where appropriate.
+
+==================================================
+2. REMOVE ADMIN APPROVAL FOR STUDENT REGISTRATION
+==================================================
+
+I no longer want students to wait for admin approval after registration.
+
+Remove the "pending approval" workflow from the normal student registration process.
+
+New student flow should be:
+
+Register
+→ Account created
+→ Login
+→ Student can use the application
+→ Student can book according to the normal booking/subscription rules
+
+Do NOT show:
+
+"Waiting for admin approval"
+
+Do NOT require admin approval before the student can book.
+
+Remove/disable the related frontend screens and guards.
+
+Remove the normal registration dependency on:
+
+pending
+approved
+rejected
+
+if those statuses are only being used for the old approval workflow.
+
+IMPORTANT:
+
+Do not break the database or unrelated admin functionality.
+
+If the existing database contains an approval/status field that is still useful for suspension/account management, keep it if necessary, but remove the requirement that a newly registered student must be manually approved before booking.
+
+A newly registered student should automatically be allowed to use the application unless another valid security rule blocks them.
+
+==================================================
+3. KEEP ANTI-ABUSE PROTECTION
+==================================================
+
+Even though admin approval is being removed, DO NOT remove the important anti-abuse protections.
+
+Keep:
+
+- Unique email
+- Unique Student ID
+- Unique phone number where appropriate
+- Database-level duplicate booking protection
+- One booking per student per day
+- Supabase RLS
+- Student access restricted to their own data
+- Students cannot access other students' private information
+- Students cannot modify admin-controlled data
+
+The system must still prevent someone from simply creating multiple accounts with the same Student ID or phone number.
+
+Do NOT replace security with admin approval.
+
+==================================================
+4. REMOVE DARK MODE COMPLETELY
+==================================================
+
+I no longer want Dark Mode.
+
+Remove the Dark Mode feature from the application.
+
+Remove:
+
+- Dark Mode toggle
+- Theme switcher
+- System theme option
+- Dark Mode settings
+- Dark theme CSS/classes if they are only used for Dark Mode
+- ThemeContext if it becomes unnecessary
+- LocalStorage theme persistence if it is only for Dark Mode
+
+The application should use ONE clean light theme.
+
+Do not leave a broken/unused Dark Mode option anywhere in the UI.
+
+Keep the current light design.
+
+==================================================
+5. DO NOT CHANGE THESE FEATURES
+==================================================
+
+Do NOT remove or break:
+
+- Student registration/login
+- Student profile
+- Stations
+- Booking
+- Multiple selected booking dates
+- One booking per day protection
+- Subscriptions
+- Subscription expiration
+- Subscription notifications
+- Admin dashboard
+- Station management
+- Departure time management
+- 09:00 default departure time
+- Additional departure times
+- Trip capacity
+- Booking grouping
+- Student phone/call button
+- Arabic language
+- English language
+- PWA
+- CSV export
+- Print functionality
+- RLS/security
+- Notifications
+
+Only modify what is requested above.
+
+==================================================
+6. UI REQUIREMENT
+==================================================
+
+Make the station cards clearly clickable.
+
+Add an obvious interaction:
+
+- cursor pointer
+- hover effect
+- subtle transition
+- clear selected/active state
+
+When clicking a station:
+
+Navigate to the station details view or open a dedicated details section.
+
+Do NOT display all station students underneath every station card.
+
+The user should have a clear flow:
+
+Admin Dashboard
+↓
+Stations
+↓
+Click station
+↓
+Station Details
+↓
+Only students belonging to that station
+
+Add a clear Back button:
+
+"Back to stations"
+
+Arabic version:
+
+"العودة إلى المحطات"
+
+==================================================
+7. RESPONSIVE
+==================================================
+
+The new station details page must work properly on:
+
+- Android
+- iPhone
+- Desktop
+
+On mobile, student rows/cards should be easy to read and the Call button should be easy to tap.
+
+==================================================
+8. FINAL VERIFICATION
+==================================================
+
+After making the changes:
+
+1. Run TypeScript/typecheck.
+2. Run production build.
+3. Verify station click behavior.
+4. Verify filtering by station.
+5. Verify date + station filtering.
+6. Verify new students can register and book without admin approval.
+7. Verify duplicate Student ID/email/phone protections remain.
+8. Verify one-booking-per-day protection remains.
+9. Verify Dark Mode is completely removed.
+10. Verify Arabic/English still work.
+11. Verify PWA still builds.
+12. Verify existing admin/student features were not broken.
+
+Fix all errors before finishing.
+
+Then give me a concise summary of:
+- Files changed
+- Features changed
+- Tests/build results
+- Any remaining manual step
